@@ -1,6 +1,7 @@
 package com.testing.security.oauth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -60,8 +61,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
+        
+        UserDetails userDetails=(UserDetails) authentication.getPrincipal();
 
-        String token = tokenProvider.createToken(authentication);
+        String token = tokenProvider.generateToken(userDetails,"user");
 
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)

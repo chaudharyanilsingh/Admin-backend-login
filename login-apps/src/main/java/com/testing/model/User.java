@@ -1,6 +1,7 @@
 package com.testing.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.testing.enums.AllEnums.AuthProvider;
+import com.testing.enums.AllEnums.Role;
 
 import lombok.Data;
 
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 @Data
-public class User {
+public class User extends Basetimes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +33,11 @@ public class User {
 
     @JsonIgnore
     private String password;
-
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
@@ -41,5 +46,8 @@ public class User {
     
    
     private Boolean status;
+
+
+	
 
 }

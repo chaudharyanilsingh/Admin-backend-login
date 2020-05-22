@@ -1,13 +1,10 @@
 package com.testing.common;
-
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Response implements Serializable {
+public class Response{
 
     private Object data;
     private String message;

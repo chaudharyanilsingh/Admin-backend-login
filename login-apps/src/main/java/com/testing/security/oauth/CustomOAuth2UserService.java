@@ -3,7 +3,7 @@ import com.testing.enums.AllEnums.AuthProvider;
 import com.testing.exception.OAuth2AuthenticationProcessingException;
 import com.testing.model.User;
 import com.testing.repository.UserRepository;
-import com.testing.security.UserPrincipal;
+import com.testing.security.AuthUserFactory;
 import com.testing.security.oauth.user.OAuth2UserInfo;
 import com.testing.security.oauth.user.OAuth2UserInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return UserPrincipal.create(user, oAuth2User.getAttributes());
+        return AuthUserFactory.create(user, oAuth2User.getAttributes());
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
